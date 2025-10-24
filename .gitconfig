@@ -1,4 +1,6 @@
 [user]
+	# IMPORTANT: Replace with your actual name and email
+	# これらの値を実際の名前とメールアドレスに置き換えてください
 	name = Your Name
 	email = your.email@example.com
 

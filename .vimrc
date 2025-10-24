@@ -43,7 +43,11 @@ set noswapfile
 set lazyredraw                " Redraw only when needed
 
 " Clipboard
-set clipboard=unnamed         " Use system clipboard on Mac
+if has('mac') || has('macunix')
+  set clipboard=unnamed       " Use system clipboard on Mac
+else
+  set clipboard=unnamedplus   " Use system clipboard on other systems
+endif
 
 " Mouse
 set mouse=a                   " Enable mouse support
