@@ -35,7 +35,7 @@ create_symlink() {
         echo -e "${YELLOW}Warning: $target already exists${NC}"
         read -p "Do you want to backup and replace it? (y/n) " -n 1 -r
         echo
-        if [[ $REPLY =~ ^[YyYes]$ ]] || [[ $REPLY == "yes" ]] || [[ $REPLY == "Yes" ]] || [[ $REPLY == "YES" ]]; then
+        if [[ $REPLY =~ ^[Yy](es)?$ ]] || [[ $REPLY == "YES" ]]; then
             mv "$target" "${target}.backup.$(date +%Y%m%d_%H%M%S)"
             echo -e "${GREEN}Created backup${NC}"
         else
