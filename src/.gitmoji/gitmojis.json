@@ -1,0 +1,463 @@
+[
+  {
+    "emoji": "🎨",
+    "entity": "&#x1f3a8;",
+    "code": ":art:",
+    "description": "コードの 構造/フォーマット の改善 - Improving structure / format of the code.",
+    "name": "art"
+  },
+  {
+    "emoji": "⚡️",
+    "entity": "&#x26a1;",
+    "code": ":zap:",
+    "description": "パフォーマンス改善 - Improving performance.",
+    "name": "zap"
+  },
+  {
+    "emoji": "🔥",
+    "entity": "&#x1f525;",
+    "code": ":fire:",
+    "description": "コード/ファイル の削除 - Removing code or files.",
+    "name": "fire"
+  },
+  {
+    "emoji": "🐛",
+    "entity": "&#x1f41b;",
+    "code": ":bug:",
+    "description": "バグ修正 - Fixing a bug.",
+    "name": "bug"
+  },
+  {
+    "emoji": "🚑",
+    "entity": "&#128657;",
+    "code": ":ambulance:",
+    "description": "クリティカルなバグ修正 - Critical hotfix.",
+    "name": "ambulance"
+  },
+  {
+    "emoji": "✨",
+    "entity": "&#x2728;",
+    "code": ":sparkles:",
+    "description": "新機能 - Introducing new features.",
+    "name": "sparkles"
+  },
+  {
+    "emoji": "📝",
+    "entity": "&#x1f4dd;",
+    "code": ":pencil:",
+    "description": "ドキュメントの執筆 - Writing docs.",
+    "name": "pencil"
+  },
+  {
+    "emoji": "🚀",
+    "entity": "&#x1f680;",
+    "code": ":rocket:",
+    "description": "デプロイ - Deploying stuff.",
+    "name": "rocket"
+  },
+  {
+    "emoji": "💄",
+    "entity": "&#ff99cc;",
+    "code": ":lipstick:",
+    "description": "デザイン変更 - Updating the UI and style files.",
+    "name": "lipstick"
+  },
+  {
+    "emoji": "🎉",
+    "entity": "&#127881;",
+    "code": ":tada:",
+    "description": "最初のコミット - Initial commit.",
+    "name": "tada"
+  },
+  {
+    "emoji": "✅",
+    "entity": "&#x2705;",
+    "code": ":white_check_mark:",
+    "description": "テスト更新 - Updating tests.",
+    "name": "white-check-mark"
+  },
+  {
+    "emoji": "🔒",
+    "entity": "&#x1f512;",
+    "code": ":lock:",
+    "description": "セキュリティ問題の修正 - Fixing security issues.",
+    "name": "lock"
+  },
+  {
+    "emoji": "🍎",
+    "entity": "&#x1f34e;",
+    "code": ":apple:",
+    "description": "macOS のなにかを修正 - Fixing something on macOS.",
+    "name": "apple"
+  },
+  {
+    "emoji": "🐧",
+    "entity": "&#x1f427;",
+    "code": ":penguin:",
+    "description": "Linux のなにかを修正 - Fixing something on Linux.",
+    "name": "penguin"
+  },
+  {
+    "emoji": "🏁",
+    "entity": "&#x1f3c1;",
+    "code": ":checkered_flag:",
+    "description": "Windows のなにかを修正 - Fixing something on Windows.",
+    "name": "checkered-flag"
+  },
+  {
+    "emoji": "🤖",
+    "entity": "&#129302;",
+    "code": ":robot:",
+    "description": "Android のなにかを修正 - Fixing something on Android.",
+    "name": "robot"
+  },
+  {
+    "emoji": "🍏",
+    "entity": "&#127823;",
+    "code": ":green_apple:",
+    "description": "iOS のなにかを修正 - Fixing something on iOS.",
+    "name": "green-apple"
+  },
+  {
+    "emoji": "🔖",
+    "entity": "&#x1f516;",
+    "code": ":bookmark:",
+    "description": "リリース/バージョン タグ - Releasing / Version tags.",
+    "name": "bookmark"
+  },
+  {
+    "emoji": "🚨",
+    "entity": "&#x1f6a8;",
+    "code": ":rotating_light:",
+    "description": "Linterの警告を削除 - Removing linter warnings.",
+    "name": "rotating-light"
+  },
+  {
+    "emoji": "🚧",
+    "entity": "&#x1f6a7;",
+    "code": ":construction:",
+    "description": "WIP - Work in progress.",
+    "name": "construction"
+  },
+  {
+    "emoji": "💚",
+    "entity": "&#x1f49a;",
+    "code": ":green_heart:",
+    "description": "CI の修正 - Fixing CI Build.",
+    "name": "green-heart"
+  },
+  {
+    "emoji": "⬇️",
+    "entity": "⬇️",
+    "code": ":arrow_down:",
+    "description": "依存関係のダウングレード - Downgrading dependencies.",
+    "name": "arrow-down"
+  },
+  {
+    "emoji": "⬆️",
+    "entity": "⬆️",
+    "code": ":arrow_up:",
+    "description": "依存関係のアップグレード - Upgrading dependencies.",
+    "name": "arrow-up"
+  },
+  {
+    "emoji": "📌",
+    "entity": "&#x1F4CC;",
+    "code": ":pushpin:",
+    "description": "特定のバージョンへの依存関係の固定 - Pinning dependencies to specific versions.",
+    "name": "pushpin"
+  },
+  {
+    "emoji": "👷",
+    "entity": "&#x1f477;",
+    "code": ":construction_worker:",
+    "description": "CI の追加 - Adding CI build system.",
+    "name": "construction-worker"
+  },
+  {
+    "emoji": "📈",
+    "code": ":chart_with_upwards_trend:",
+    "description": "解析コードの追加 - Adding analytics or tracking code.",
+    "name": "chart-with-upwards-trend"
+  },
+  {
+    "emoji": "♻️",
+    "entity": "&#x2672;",
+    "code": ":recycle:",
+    "description": "リファクタリング - Refactoring code.",
+    "name": "recycle"
+  },
+  {
+    "emoji": "🐳",
+    "entity": "&#x1f433;",
+    "code": ":whale:",
+    "description": "Docker に関する作業 - Work about Docker.",
+    "name": "whale"
+  },
+  {
+    "emoji": "➕",
+    "entity": "&#10133;",
+    "code": ":heavy_plus_sign:",
+    "description": "依存関係の追加 - Adding a dependency.",
+    "name": "heavy-plus-sign"
+  },
+  {
+    "emoji": "➖",
+    "entity": "&#10134;",
+    "code": ":heavy_minus_sign:",
+    "description": "依存関係の削除 - Removing a dependency.",
+    "name": "heavy-minus-sign"
+  },
+  {
+    "emoji": "🔧",
+    "entity": "&#x1f527;",
+    "code": ":wrench:",
+    "description": "設定ファイルの変更 - Changing configuration files.",
+    "name": "wrench"
+  },
+  {
+    "emoji": "🌐",
+    "entity": "&#127760;",
+    "code": ":globe_with_meridians:",
+    "description": "国際化とローカリゼーション - Internationalization and localization.",
+    "name": "globe-with-meridians"
+  },
+  {
+    "emoji": "✏️",
+    "entity": "&#59161;",
+    "code": ":pencil2:",
+    "description": "タイポ修正 - Fixing typos.",
+    "name": "pencil"
+  },
+  {
+    "emoji": "💩",
+    "entity": "&#58613;",
+    "code": ":poop:",
+    "description": "改善が必要な悪いコード - Writing bad code that needs to be improved.",
+    "name": "poop"
+  },
+  {
+    "emoji": "⏪",
+    "entity": "&#9194;",
+    "code": ":rewind:",
+    "description": "変更を戻す - Reverting changes.",
+    "name": "rewind"
+  },
+  {
+    "emoji": "🔀",
+    "entity": "&#128256;",
+    "code": ":twisted_rightwards_arrows:",
+    "description": "ブランチのマージ - Merging branches.",
+    "name": "twisted-rightwards-arrows"
+  },
+  {
+    "emoji": "📦",
+    "entity": "&#1F4E6;",
+    "code": ":package:",
+    "description": "コンパイルした ファイル/パッケージ の更新 - Updating compiled files or packages.",
+    "name": "package"
+  },
+  {
+    "emoji": "👽",
+    "entity": "&#1F47D;",
+    "code": ":alien:",
+    "description": "外部 API の変更によるコードの更新 - Updating code due to external API changes.",
+    "name": "alien"
+  },
+  {
+    "emoji": "🚚",
+    "entity": "&#1F69A;",
+    "code": ":truck:",
+    "description": "ファイルの 移動/名前 の変更 - Moving or renaming files.",
+    "name": "truck"
+  },
+  {
+    "emoji": "📄",
+    "entity": "&#1F4C4;",
+    "code": ":page_facing_up:",
+    "description": "ライセンスの 追加/更新 - Adding or updating license.",
+    "name": "page-facing-up"
+  },
+  {
+    "emoji": "💥",
+    "entity": "&#x1f4a5;",
+    "code": ":boom:",
+    "description": "重要な変更の紹介 - Introducing breaking changes.",
+    "name": "boom"
+  },
+  {
+    "emoji": "🍱",
+    "entity": "&#1F371",
+    "code": ":bento:",
+    "description": "アセットの 追加/更新 - Adding or updating assets.",
+    "name": "bento"
+  },
+  {
+    "emoji": "👌",
+    "entity": "&#x1f44c;",
+    "code": ":ok_hand:",
+    "description": "コードレビューによる更新 - Updating code due to code review changes.",
+    "name": "ok-hand"
+  },
+  {
+    "emoji": "♿️",
+    "entity": "&#9855;",
+    "code": ":wheelchair:",
+    "description": "アクセシビリティの向上 - Improving accessibility.",
+    "name": "wheelchair"
+  },
+  {
+    "emoji": "💡",
+    "entity": "&#128161;",
+    "code": ":bulb:",
+    "description": "ソースコードの文書化 - Documenting source code.",
+    "name": "bulb"
+  },
+  {
+    "emoji": "🍻",
+    "entity": "&#x1f37b;",
+    "code": ":beers:",
+    "description": "酔って書いたコード - Writing code drunkenly.",
+    "name": "beers"
+  },
+  {
+    "emoji": "💬",
+    "entity": "&#128172;",
+    "code": ":speech_balloon:",
+    "description": "テキスト変更 - Updating text and literals.",
+    "name": "speech-balloon"
+  },
+  {
+    "emoji": "🗃",
+    "entity": "&#128451;",
+    "code": ":card_file_box:",
+    "description": "データベース関連の変更を実行 - Performing database related changes.",
+    "name": "card-file-box"
+  },
+  {
+    "emoji": "🔊",
+    "entity": "&#128266;",
+    "code": ":loud_sound:",
+    "description": "ログの追加 - Adding logs.",
+    "name": "loud-sound"
+  },
+  {
+    "emoji": "🔇",
+    "entity": "&#128263;",
+    "code": ":mute:",
+    "description": "ログを削除 - Removing logs.",
+    "name": "mute"
+  },
+  {
+    "emoji": "👥",
+    "entity": "&#128101;",
+    "code": ":busts_in_silhouette:",
+    "description": "コントリビューターの追加 - Adding contributor(s).",
+    "name": "busts-in-silhouette"
+  },
+  {
+    "emoji": "🚸",
+    "entity": "&#128696;",
+    "code": ":children_crossing:",
+    "description": "ユーザーエクスペリエンス/使いやすさ の向上 - Improving user experience / usability.",
+    "name": "children-crossing"
+  },
+  {
+    "emoji": "🏗",
+    "entity": "&#1f3d7;",
+    "code": ":building_construction:",
+    "description": "アーキテクチャの変更 - Making architectural changes.",
+    "name": "building-construction"
+  },
+  {
+    "emoji": "📱",
+    "entity": "&#128241;",
+    "code": ":iphone:",
+    "description": "レスポンシブデザインに関する作業 - Working on responsive design.",
+    "name": "iphone"
+  },
+  {
+    "emoji": "🤡",
+    "entity": "&#129313;",
+    "code": ":clown_face:",
+    "description": "モック - Mocking things.",
+    "name": "clown-face"
+  },
+  {
+    "emoji": "🥚",
+    "entity": "&#129370;",
+    "code": ":egg:",
+    "description": "イースターエッグの追加 - Adding an easter egg.",
+    "name": "egg"
+  },
+  {
+    "emoji": "🙈",
+    "entity": "&#8bdfe7;",
+    "code": ":see_no_evil:",
+    "description": ".gitignore の追加/更新 - Adding or updating a .gitignore file",
+    "name": "see-no-evil"
+  },
+  {
+    "emoji": "📸",
+    "entity": "&#128248;",
+    "code": ":camera_flash:",
+    "description": "画像の 追加/更新 - Adding or updating snapshots",
+    "name": "camera-flash"
+  },
+  {
+    "emoji": "⚗",
+    "entity": "&#128248;",
+    "code": ":alembic:",
+    "description": "新しいことを実験する - Experimenting new things",
+    "name": "alembic"
+  },
+  {
+    "emoji": "🔍",
+    "entity": "&#128269;",
+    "code": ":mag:",
+    "description": "SEO の改善 - Improving SEO",
+    "name": "mag"
+  },
+  {
+    "emoji": "☸️",
+    "entity": "&#9784;",
+    "code": ":wheel_of_dharma:",
+    "description": "Kubernetes に関する作業 - Work about Kubernetes",
+    "name": "wheel-of-dharma"
+  },
+  {
+    "emoji": "🏷️",
+    "entity": "&#127991;",
+    "code": ":label:",
+    "description": "型の 追加/更新 - Adding or updating types (Flow, TypeScript)",
+    "name": "label"
+  },
+  {
+    "emoji": "🌱",
+    "entity": "&#127793;",
+    "code": ":seedling:",
+    "description": "seed ファイルの 追加/更新 - Adding or updating seed files",
+    "name": "seedling"
+  },
+  {
+    "emoji": "🚩",
+    "entity": "&#x1F6A9;",
+    "code": ":triangular_flag_on_post:",
+    "description": "Feature フラグの 追加/更新/削除 - Adding, updating, or removing feature flags",
+    "name": "triangular-flag-on-post"
+  },
+  {
+    "emoji": "🥅",
+    "entity": "&#x1F945;",
+    "code": ":goal_net:",
+    "description": "キャッチエラー - Catching errors",
+    "name": "goal-net"
+  },
+  {
+    "emoji": "💫",
+    "entity": "&#x1f4ab;",
+    "code": ":dizzy:",
+    "description": "アニメーションとトランジションの 追加/更新 - Adding or updating animations and transitions",
+    "name": "animation"
+  }
+]

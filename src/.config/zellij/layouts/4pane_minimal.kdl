@@ -1,0 +1,47 @@
+layout {
+    // タブのデフォルトテンプレート（タブバーとステータスバーを含む）
+    default_tab_template {
+        // タブバー（上部1行）
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        // タブ固有のペイン構成（後述のtabブロックまたはnew_tab_templateから挿入される）
+        children
+        // ステータスバー（下部2行）
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    // 起動時の初期タブ（4ペイン構成）
+    tab {
+        pane split_direction="vertical" {
+            // 上段（左右2分割）
+            pane split_direction="horizontal" {
+                pane focus=true  // 起動後、最初にフォーカスされるペイン
+                pane
+            }
+            // 下段（左右2分割）
+            pane split_direction="horizontal" {
+                pane
+                pane
+            }
+        }
+    }
+
+    // 新規タブ作成時のテンプレート（4ペイン構成）
+    new_tab_template {
+        pane split_direction="vertical" {
+            // 上段（左右2分割）
+            pane split_direction="horizontal" {
+                pane focus=true  // 新規タブ作成時、最初にフォーカスされるペイン
+                pane
+            }
+            // 下段（左右2分割）
+            pane split_direction="horizontal" {
+                pane
+                pane
+            }
+        }
+    }
+}
