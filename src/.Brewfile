@@ -1,12 +1,12 @@
 tap "adoptopenjdk/openjdk"
 tap "aws/tap"
-tap "homebrew/bundle"
-tap "homebrew/cask-versions"
 tap "oven-sh/bun"
 tap "robotsandpencils/made"
 tap "supabase/tap"
 # Run your GitHub Actions locally
 brew "act"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Automate deployment, configuration, and upgrading
 brew "ansible"
 # Official Amazon AWS command-line interface
@@ -51,8 +51,6 @@ brew "starship"
 brew "tig"
 # Terminal multiplexer
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
 # Next generation frontend tooling. It's fast!
 brew "vite"
 # Watch files and take action when they change
@@ -92,6 +90,8 @@ cask "docker-desktop"
 cask "elgato-stream-deck"
 # Launch builds and start simulators from your menu bar
 cask "expo-orbit"
+# Reimagine your terminal
+cask "fig"
 # Collaborative team software
 cask "figma"
 # Web browser
@@ -152,6 +152,7 @@ vscode "codecov.codecov"
 vscode "codeque.codeque"
 vscode "dbaeumer.vscode-eslint"
 vscode "dsznajder.es7-react-js-snippets"
+vscode "duynvu.dbml-language"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
@@ -174,6 +175,7 @@ vscode "ms-azuretools.vscode-docker"
 vscode "ms-ceintl.vscode-language-pack-ja"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vsliveshare.vsliveshare"
+vscode "nicolas-liger.dbml-viewer"
 vscode "oderwat.indent-rainbow"
 vscode "orta.vscode-jest"
 vscode "pkief.material-icon-theme"
@@ -186,6 +188,7 @@ vscode "tamasfe.even-better-toml"
 vscode "usernamehw.errorlens"
 vscode "visualstudioexptteam.vscodeintellicode-completions"
 vscode "vscode-icons-team.vscode-icons"
+vscode "withfig.fig"
 vscode "wix.vscode-import-cost"
 vscode "yoavbls.pretty-ts-errors"
 vscode "yusukehirao.vscode-markuplint"
