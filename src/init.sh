@@ -30,6 +30,10 @@ ln -nfs "$CURRENT"/.config/zellij/layouts ~/.config/zellij/layouts || { echo "�
 echo "starship設定をリンクしています"
 ln -nfs "$CURRENT"/.config/starship.toml ~/.config/starship.toml || { echo "エラー: starship設定のリンクに失敗しました"; exit 1; }
 
+# mise
+echo "mise設定をリンクしています"
+ln -nfs "$CURRENT"/.config/mise ~/.config/mise || { echo "エラー: mise設定のリンクに失敗しました"; exit 1; }
+
 # .zshrc
 echo ".zshrcをリンクしています"
 ln -nfs "$CURRENT"/.zshrc ~/.zshrc || { echo "エラー: .zshrcのリンクに失敗しました"; exit 1; }
