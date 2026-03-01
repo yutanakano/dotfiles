@@ -72,7 +72,49 @@ fi
 echo ""
 
 # -------------------------------------------------
-# 3. 設定ファイル妥当性チェック
+# 3. 入力検証関数のテスト
+# -------------------------------------------------
+echo "[入力検証関数のテスト]"
+
+# 検証関数を読み込む
+. "$SRC_DIR/init.sh" 2>/dev/null || true
+
+# validate_not_emptyのテスト
+if validate_not_empty "test" 2>/dev/null; then
+    pass "validate_not_empty: 空でない文字列を正しく判定"
+else
+    fail "validate_not_empty: 空でない文字列の判定に失敗"
+fi
+
+if ! validate_not_empty "" 2>/dev/null; then
+    pass "validate_not_empty: 空文字列を正しく判定"
+else
+    fail "validate_not_empty: 空文字列の判定に失敗"
+fi
+
+# validate_emailのテスト
+if validate_email "test@example.com" 2>/dev/null; then
+    pass "validate_email: 有効なメールアドレスを正しく判定"
+else
+    fail "validate_email: 有効なメールアドレスの判定に失敗"
+fi
+
+if ! validate_email "invalid" 2>/dev/null; then
+    pass "validate_email: 無効なメールアドレスを正しく判定"
+else
+    fail "validate_email: 無効なメールアドレスの判定に失敗"
+fi
+
+if ! validate_email "" 2>/dev/null; then
+    pass "validate_email: 空文字列を正しく判定"
+else
+    fail "validate_email: 空文字列の判定に失敗"
+fi
+
+echo ""
+
+# -------------------------------------------------
+# 4. 設定ファイル妥当性チェック
 # -------------------------------------------------
 echo "[設定ファイル妥当性チェック]"
 
@@ -104,7 +146,7 @@ fi
 echo ""
 
 # -------------------------------------------------
-# 4. 実際の動作テスト（一時ディレクトリで安全に実行）
+# 5. 実際の動作テスト（一時ディレクトリで安全に実行）
 # -------------------------------------------------
 echo "[動作テスト（一時ディレクトリ）]"
 

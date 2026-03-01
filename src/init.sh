@@ -3,6 +3,15 @@ set -e
 
 CURRENT="$(cd "$(dirname "$0")" && pwd)"
 
+# 検証関数
+validate_not_empty() {
+    [ -n "$1" ]
+}
+
+validate_email() {
+    echo "$1" | grep -q "@"
+}
+
 echo "dotfilesをセットアップしています"
 
 # 必要なディレクトリを作成
@@ -47,8 +56,27 @@ ln -nfs "$CURRENT"/.Brewfile ~/.Brewfile || { echo "エラー: .Brewfileのリ�
 if [ ! -f ~/.gitconfig ]; then
     echo ".gitconfigをセットアップしています"
     cp "$CURRENT"/.gitconfig.template ~/.gitconfig || { echo "エラー: .gitconfigテンプレートのコピーに失敗しました"; exit 1; }
-    read -p "名前を入力してください: " git_name
-    read -p "メールアドレスを入力してください: " git_email
+
+    # 名前の入力（空でないことを検証）
+    git_name=""
+    while ! validate_not_empty "$git_name"; do
+        read -p "名前を入力してください: " git_name
+        if ! validate_not_empty "$git_name"; then
+            echo "エラー: 名前を入力してください"
+        fi
+    done
+
+    # メールアドレスの入力（形式を検証）
+    git_email=""
+    while ! validate_not_empty "$git_email" || ! validate_email "$git_email"; do
+        read -p "メールアドレスを入力してください: " git_email
+        if ! validate_not_empty "$git_email"; then
+            echo "エラー: メールアドレスを入力してください"
+        elif ! validate_email "$git_email"; then
+            echo "エラー: 有効なメールアドレスを入力してください（@を含む必要があります）"
+        fi
+    done
+
     sed -i.bak "s/YOUR_NAME/$git_name/" ~/.gitconfig || { echo "エラー: 名前の更新に失敗しました"; exit 1; }
     sed -i.bak "s/YOUR_EMAIL/$git_email/" ~/.gitconfig || { echo "エラー: メールアドレスの更新に失敗しました"; exit 1; }
     rm ~/.gitconfig.bak
