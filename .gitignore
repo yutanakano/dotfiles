@@ -1,0 +1,14 @@
+# macOS（自動生成）
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# エディタ（自動生成）
+*.swp
+*.swo
+*~
+
+# 一時ファイル（自動生成）
+*.tmp
+*.bak
