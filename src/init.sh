@@ -15,6 +15,7 @@ mkdir -p ~/.gitmoji
 # ssh
 echo "SSH設定をリンクしています"
 ln -nfs "$CURRENT"/.ssh/config ~/.ssh/config || { echo "エラー: SSH設定のリンクに失敗しました"; exit 1; }
+chmod 600 ~/.ssh/config
 
 # tmux
 echo "tmux設定をリンクしています"
