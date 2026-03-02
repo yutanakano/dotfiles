@@ -166,6 +166,109 @@ check_before_symlink() {
     fi
 }
 
+# シンボリックリンク設定のリストを処理
+# $1: action (install/uninstall)
+process_symlink_configs() {
+    action="$1"
+    removed_count=0
+    skipped_count=0
+
+    # パイプ区切りで設定を定義: source|target|description|post_command
+    while IFS='|' read -r source target desc post_cmd; do
+        # 空行やコメントをスキップ
+        case "$source" in
+            ''|'#'*) continue ;;
+        esac
+
+        if [ "$action" = "install" ]; then
+            if [ $DRY_RUN -eq 1 ]; then
+                echo "  [DRY RUN] ln -nfs $source $target"
+                [ -n "$post_cmd" ] && echo "  [DRY RUN] $post_cmd"
+            else
+                check_before_symlink "$source" "$target" "$desc"
+                ln -nfs "$source" "$target" || error_symlink "$source" "$target" "$desc"
+                record_link "$target"
+                [ -n "$post_cmd" ] && eval "$post_cmd"
+            fi
+        elif [ "$action" = "uninstall" ]; then
+            if [ -L "$target" ]; then
+                if [ $DRY_RUN -eq 1 ]; then
+                    echo "  [DRY RUN] rm -f $target ($desc)"
+                else
+                    rm -f "$target"
+                    echo "  削除: $target ($desc)"
+                fi
+                removed_count=$((removed_count + 1))
+            elif [ -e "$target" ]; then
+                echo "  警告: $target はシンボリックリンクではありません。スキップします"
+                skipped_count=$((skipped_count + 1))
+            fi
+        fi
+    done <<SYMLINK_LIST
+$CURRENT/.ssh/config|$HOME/.ssh/config|SSH設定|chmod 600 "$HOME/.ssh/config"
+$CURRENT/.config/tmux/tmux.conf|$HOME/.config/tmux/tmux.conf|tmux設定|
+$CURRENT/.config/tmux/quad.sh|$HOME/.config/tmux/quad.sh|tmux quad.sh|
+$CURRENT/.config/tmux/editer.sh|$HOME/.config/tmux/editer.sh|tmux editer.sh|
+$CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウト|
+$CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
+$CURRENT/.config/mise|$HOME/.config/mise|mise設定|
+$CURRENT/.zshrc|$HOME/.zshrc|.zshrc|
+$CURRENT/.Brewfile|$HOME/.Brewfile|.Brewfile|
+$CURRENT/.gitmoji/gitmojis.json|$HOME/.gitmoji/gitmojis.json|gitmoji設定|
+SYMLINK_LIST
+
+    # アンインストール時のサマリー
+    if [ "$action" = "uninstall" ]; then
+        if [ $removed_count -eq 0 ] && [ $skipped_count -eq 0 ]; then
+            echo "  削除するシンボリックリンクが見つかりませんでした"
+        fi
+    fi
+}
+
+# ディレクトリ設定のリストを処理
+# $1: action (create/remove)
+process_directory_configs() {
+    action="$1"
+    removed_count=0
+
+    # パイプ区切りで設定を定義: path|description
+    while IFS='|' read -r dir_path desc; do
+        # 空行やコメントをスキップ
+        case "$dir_path" in
+            ''|'#'*) continue ;;
+        esac
+
+        if [ "$action" = "create" ]; then
+            if [ $DRY_RUN -eq 1 ]; then
+                echo "  [DRY RUN] mkdir -p $dir_path"
+            else
+                [ ! -d "$dir_path" ] && mkdir -p "$dir_path" && record_dir "$dir_path"
+            fi
+        elif [ "$action" = "remove" ]; then
+            if [ -d "$dir_path" ] && [ -z "$(ls -A "$dir_path" 2>/dev/null)" ]; then
+                if [ $DRY_RUN -eq 1 ]; then
+                    echo "  [DRY RUN] rmdir $dir_path ($desc)"
+                else
+                    rmdir "$dir_path" 2>/dev/null && echo "  削除: $dir_path ($desc)" || true
+                fi
+                removed_count=$((removed_count + 1))
+            elif [ -d "$dir_path" ] && [ -n "$(ls -A "$dir_path" 2>/dev/null)" ]; then
+                echo "  情報: $dir_path は空でないためスキップします"
+            fi
+        fi
+    done <<DIR_LIST
+$HOME/.ssh|.sshディレクトリ
+$HOME/.config/tmux|tmuxディレクトリ
+$HOME/.config/zellij|zellijディレクトリ
+$HOME/.gitmoji|.gitmojiディレクトリ
+DIR_LIST
+
+    # アンインストール時のサマリー
+    if [ "$action" = "remove" ] && [ $removed_count -eq 0 ]; then
+        echo "  削除する空のディレクトリが見つかりませんでした"
+    fi
+}
+
 # アンインストール関数
 uninstall_dotfiles() {
     if [ $DRY_RUN -eq 1 ]; then
@@ -179,56 +282,14 @@ uninstall_dotfiles() {
     fi
 
     # シンボリックリンクの削除
-    remove_symlink() {
-        target_path="$1"
-        description="$2"
-
-        if [ -L "$target_path" ]; then
-            if [ $DRY_RUN -eq 1 ]; then
-                echo "  [DRY RUN] rm -f $target_path ($description)"
-            else
-                rm -f "$target_path"
-                echo "  削除: $target_path ($description)"
-            fi
-        elif [ -e "$target_path" ]; then
-            echo "  警告: $target_path はシンボリックリンクではありません。スキップします"
-        fi
-    }
-
-    # 各シンボリックリンクを削除
     echo "シンボリックリンクを削除しています"
-    remove_symlink "$HOME/.ssh/config" "SSH設定"
-    remove_symlink "$HOME/.config/tmux/tmux.conf" "tmux設定"
-    remove_symlink "$HOME/.config/tmux/quad.sh" "tmux quad.sh"
-    remove_symlink "$HOME/.config/tmux/editer.sh" "tmux editer.sh"
-    remove_symlink "$HOME/.config/zellij/layouts" "zellijレイアウト"
-    remove_symlink "$HOME/.config/starship.toml" "starship設定"
-    remove_symlink "$HOME/.config/mise" "mise設定"
-    remove_symlink "$HOME/.zshrc" ".zshrc"
-    remove_symlink "$HOME/.Brewfile" ".Brewfile"
-    remove_symlink "$HOME/.gitmoji/gitmojis.json" "gitmoji設定"
+    process_symlink_configs uninstall
 
     echo ""
 
     # 空のディレクトリを削除
-    remove_empty_dir() {
-        dir_path="$1"
-        description="$2"
-
-        if [ -d "$dir_path" ] && [ -z "$(ls -A "$dir_path" 2>/dev/null)" ]; then
-            if [ $DRY_RUN -eq 1 ]; then
-                echo "  [DRY RUN] rmdir $dir_path ($description)"
-            else
-                rmdir "$dir_path" 2>/dev/null && echo "  削除: $dir_path ($description)" || true
-            fi
-        fi
-    }
-
     echo "空のディレクトリを削除しています"
-    remove_empty_dir "$HOME/.gitmoji" ".gitmojiディレクトリ"
-    remove_empty_dir "$HOME/.config/zellij" "zellijディレクトリ"
-    remove_empty_dir "$HOME/.config/tmux" "tmuxディレクトリ"
-    remove_empty_dir "$HOME/.ssh" ".sshディレクトリ"
+    process_directory_configs remove
 
     echo ""
     echo "dotfilesのアンインストールが完了しました"
@@ -245,98 +306,11 @@ echo "dotfilesをセットアップしています"
 
 # 必要なディレクトリを作成
 echo "必要なディレクトリを作成しています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] mkdir -p ~/.ssh"
-    echo "  [DRY RUN] mkdir -p ~/.config/tmux"
-    echo "  [DRY RUN] mkdir -p ~/.config/zellij"
-    echo "  [DRY RUN] mkdir -p ~/.gitmoji"
-else
-    # 既存かどうか確認してから作成・記録
-    [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && record_dir "$HOME/.ssh"
-    [ ! -d ~/.config/tmux ] && mkdir -p ~/.config/tmux && record_dir "$HOME/.config/tmux"
-    [ ! -d ~/.config/zellij ] && mkdir -p ~/.config/zellij && record_dir "$HOME/.config/zellij"
-    [ ! -d ~/.gitmoji ] && mkdir -p ~/.gitmoji && record_dir "$HOME/.gitmoji"
-fi
+process_directory_configs create
 
-# ssh
-echo "SSH設定をリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.ssh/config ~/.ssh/config"
-    echo "  [DRY RUN] chmod 600 ~/.ssh/config"
-else
-    check_before_symlink "$CURRENT/.ssh/config" "$HOME/.ssh/config" "SSH設定"
-    ln -nfs "$CURRENT"/.ssh/config ~/.ssh/config || error_symlink "$CURRENT/.ssh/config" "$HOME/.ssh/config" "SSH設定"
-    record_link "$HOME/.ssh/config"
-    chmod 600 ~/.ssh/config
-fi
-
-# tmux
-echo "tmux設定をリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf"
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/tmux/quad.sh ~/.config/tmux/quad.sh"
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/tmux/editer.sh ~/.config/tmux/editer.sh"
-else
-    check_before_symlink "$CURRENT/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf" "tmux設定"
-    ln -nfs "$CURRENT"/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf || error_symlink "$CURRENT/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf" "tmux設定"
-    record_link "$HOME/.config/tmux/tmux.conf"
-    check_before_symlink "$CURRENT/.config/tmux/quad.sh" "$HOME/.config/tmux/quad.sh" "tmux quad.sh"
-    ln -nfs "$CURRENT"/.config/tmux/quad.sh ~/.config/tmux/quad.sh || error_symlink "$CURRENT/.config/tmux/quad.sh" "$HOME/.config/tmux/quad.sh" "tmux quad.sh"
-    record_link "$HOME/.config/tmux/quad.sh"
-    check_before_symlink "$CURRENT/.config/tmux/editer.sh" "$HOME/.config/tmux/editer.sh" "tmux editer.sh"
-    ln -nfs "$CURRENT"/.config/tmux/editer.sh ~/.config/tmux/editer.sh || error_symlink "$CURRENT/.config/tmux/editer.sh" "$HOME/.config/tmux/editer.sh" "tmux editer.sh"
-    record_link "$HOME/.config/tmux/editer.sh"
-fi
-
-# zellij
-echo "zellijレイアウトをリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/zellij/layouts ~/.config/zellij/layouts"
-else
-    check_before_symlink "$CURRENT/.config/zellij/layouts" "$HOME/.config/zellij/layouts" "zellijレイアウト"
-    ln -nfs "$CURRENT"/.config/zellij/layouts ~/.config/zellij/layouts || error_symlink "$CURRENT/.config/zellij/layouts" "$HOME/.config/zellij/layouts" "zellijレイアウト"
-    record_link "$HOME/.config/zellij/layouts"
-fi
-
-# starship
-echo "starship設定をリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/starship.toml ~/.config/starship.toml"
-else
-    check_before_symlink "$CURRENT/.config/starship.toml" "$HOME/.config/starship.toml" "starship設定"
-    ln -nfs "$CURRENT"/.config/starship.toml ~/.config/starship.toml || error_symlink "$CURRENT/.config/starship.toml" "$HOME/.config/starship.toml" "starship設定"
-    record_link "$HOME/.config/starship.toml"
-fi
-
-# mise
-echo "mise設定をリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.config/mise ~/.config/mise"
-else
-    check_before_symlink "$CURRENT/.config/mise" "$HOME/.config/mise" "mise設定"
-    ln -nfs "$CURRENT"/.config/mise ~/.config/mise || error_symlink "$CURRENT/.config/mise" "$HOME/.config/mise" "mise設定"
-    record_link "$HOME/.config/mise"
-fi
-
-# .zshrc
-echo ".zshrcをリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.zshrc ~/.zshrc"
-else
-    check_before_symlink "$CURRENT/.zshrc" "$HOME/.zshrc" ".zshrc"
-    ln -nfs "$CURRENT"/.zshrc ~/.zshrc || error_symlink "$CURRENT/.zshrc" "$HOME/.zshrc" ".zshrc"
-    record_link "$HOME/.zshrc"
-fi
-
-# .Brewfile
-echo ".Brewfileをリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.Brewfile ~/.Brewfile"
-else
-    check_before_symlink "$CURRENT/.Brewfile" "$HOME/.Brewfile" ".Brewfile"
-    ln -nfs "$CURRENT"/.Brewfile ~/.Brewfile || error_symlink "$CURRENT/.Brewfile" "$HOME/.Brewfile" ".Brewfile"
-    record_link "$HOME/.Brewfile"
-fi
+# シンボリックリンクの作成
+echo "シンボリックリンクを作成しています"
+process_symlink_configs install
 
 # .gitconfig
 if [ $DRY_RUN -eq 1 ]; then
@@ -382,16 +356,6 @@ else
     else
         echo ".gitconfigは既に存在します。スキップします"
     fi
-fi
-
-# .gitmoji
-echo "gitmoji設定をリンクしています"
-if [ $DRY_RUN -eq 1 ]; then
-    echo "  [DRY RUN] ln -nfs $CURRENT/.gitmoji/gitmojis.json ~/.gitmoji/gitmojis.json"
-else
-    check_before_symlink "$CURRENT/.gitmoji/gitmojis.json" "$HOME/.gitmoji/gitmojis.json" "gitmoji設定"
-    ln -nfs "$CURRENT"/.gitmoji/gitmojis.json ~/.gitmoji/gitmojis.json || error_symlink "$CURRENT/.gitmoji/gitmojis.json" "$HOME/.gitmoji/gitmojis.json" "gitmoji設定"
-    record_link "$HOME/.gitmoji/gitmojis.json"
 fi
 
 echo "dotfilesのセットアップが完了しました"
