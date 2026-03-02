@@ -1,0 +1,24 @@
+# macOS（自動生成）
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# エディタ（自動生成）
+*.swp
+*.swo
+*~
+
+# 一時ファイル（自動生成）
+*.tmp
+*.bak
+
+# テスト時の一時ディレクトリ
+src/$HOME/
+
+# バックアップファイル
+*.backup
+
+# 環境固有のファイル
+.env
+.env.local
