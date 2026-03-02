@@ -3,10 +3,29 @@ set -e
 
 CURRENT="$(cd "$(dirname "$0")" && pwd)"
 
-# dry-runモードのチェック
+# フラグのチェック
 DRY_RUN=0
-if [ "$1" = "--dry-run" ]; then
-    DRY_RUN=1
+UNINSTALL=0
+
+# 引数を処理
+for arg in "$@"; do
+    case "$arg" in
+        --dry-run)
+            DRY_RUN=1
+            ;;
+        --uninstall)
+            UNINSTALL=1
+            ;;
+        *)
+            echo "不明なオプション: $arg"
+            echo "使用方法: $0 [--dry-run] [--uninstall]"
+            exit 1
+            ;;
+    esac
+done
+
+# モードの表示
+if [ $DRY_RUN -eq 1 ]; then
     echo ""
     echo "=== DRY RUN モード ==="
     echo "実際には変更を行わず、実行内容のみを表示します"
@@ -146,6 +165,81 @@ check_before_symlink() {
         error_symlink "$source_file" "$target_path" "$operation"
     fi
 }
+
+# アンインストール関数
+uninstall_dotfiles() {
+    if [ $DRY_RUN -eq 1 ]; then
+        echo ""
+        echo "=== アンインストール (DRY RUN) ==="
+        echo ""
+    else
+        echo ""
+        echo "dotfilesをアンインストールしています"
+        echo ""
+    fi
+
+    # シンボリックリンクの削除
+    remove_symlink() {
+        target_path="$1"
+        description="$2"
+
+        if [ -L "$target_path" ]; then
+            if [ $DRY_RUN -eq 1 ]; then
+                echo "  [DRY RUN] rm -f $target_path ($description)"
+            else
+                rm -f "$target_path"
+                echo "  削除: $target_path ($description)"
+            fi
+        elif [ -e "$target_path" ]; then
+            echo "  警告: $target_path はシンボリックリンクではありません。スキップします"
+        fi
+    }
+
+    # 各シンボリックリンクを削除
+    echo "シンボリックリンクを削除しています"
+    remove_symlink "$HOME/.ssh/config" "SSH設定"
+    remove_symlink "$HOME/.config/tmux/tmux.conf" "tmux設定"
+    remove_symlink "$HOME/.config/tmux/quad.sh" "tmux quad.sh"
+    remove_symlink "$HOME/.config/tmux/editer.sh" "tmux editer.sh"
+    remove_symlink "$HOME/.config/zellij/layouts" "zellijレイアウト"
+    remove_symlink "$HOME/.config/starship.toml" "starship設定"
+    remove_symlink "$HOME/.config/mise" "mise設定"
+    remove_symlink "$HOME/.zshrc" ".zshrc"
+    remove_symlink "$HOME/.Brewfile" ".Brewfile"
+    remove_symlink "$HOME/.gitmoji/gitmojis.json" "gitmoji設定"
+
+    echo ""
+
+    # 空のディレクトリを削除
+    remove_empty_dir() {
+        dir_path="$1"
+        description="$2"
+
+        if [ -d "$dir_path" ] && [ -z "$(ls -A "$dir_path" 2>/dev/null)" ]; then
+            if [ $DRY_RUN -eq 1 ]; then
+                echo "  [DRY RUN] rmdir $dir_path ($description)"
+            else
+                rmdir "$dir_path" 2>/dev/null && echo "  削除: $dir_path ($description)" || true
+            fi
+        fi
+    }
+
+    echo "空のディレクトリを削除しています"
+    remove_empty_dir "$HOME/.gitmoji" ".gitmojiディレクトリ"
+    remove_empty_dir "$HOME/.config/zellij" "zellijディレクトリ"
+    remove_empty_dir "$HOME/.config/tmux" "tmuxディレクトリ"
+    remove_empty_dir "$HOME/.ssh" ".sshディレクトリ"
+
+    echo ""
+    echo "dotfilesのアンインストールが完了しました"
+
+    exit 0
+}
+
+# アンインストールモードの場合はアンインストールして終了
+if [ $UNINSTALL -eq 1 ]; then
+    uninstall_dotfiles
+fi
 
 echo "dotfilesをセットアップしています"
 
