@@ -388,6 +388,135 @@ fi
 echo ""
 
 # -------------------------------------------------
+# 9. アンインストール機能のテスト
+# -------------------------------------------------
+echo "[アンインストール機能のテスト]"
+
+# アンインストールがシンボリックリンクを削除するかテスト
+TEST_HOME7=$(mktemp -d)
+OLD_HOME7="$HOME"
+export HOME="$TEST_HOME7"
+
+# テスト用のディレクトリとシンボリックリンクを作成
+mkdir -p "$HOME/.ssh"
+mkdir -p "$HOME/.config/tmux"
+mkdir -p "$HOME/.gitmoji"
+ln -s "$SRC_DIR/.ssh/config" "$HOME/.ssh/config"
+ln -s "$SRC_DIR/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+ln -s "$SRC_DIR/.zshrc" "$HOME/.zshrc"
+ln -s "$SRC_DIR/.gitmoji/gitmojis.json" "$HOME/.gitmoji/gitmojis.json"
+
+# アンインストール実行
+sh "$SRC_DIR/init.sh" --uninstall >/dev/null 2>&1
+UNINSTALL_RESULT=$?
+
+# シンボリックリンクが削除されたことを確認
+if [ $UNINSTALL_RESULT -eq 0 ] && [ ! -L "$HOME/.ssh/config" ] && \
+   [ ! -L "$HOME/.config/tmux/tmux.conf" ] && [ ! -L "$HOME/.zshrc" ] && \
+   [ ! -L "$HOME/.gitmoji/gitmojis.json" ]; then
+    pass "アンインストールがシンボリックリンクを正しく削除する"
+else
+    fail "アンインストールがシンボリックリンクを削除できなかった"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME7"
+rm -rf "$TEST_HOME7"
+
+# 通常ファイルをスキップするかテスト
+TEST_HOME8=$(mktemp -d)
+export HOME="$TEST_HOME8"
+mkdir -p "$HOME/.ssh"
+
+# 通常のファイルを作成（シンボリックリンクではない）
+echo "regular file" > "$HOME/.ssh/config"
+
+# アンインストール実行
+UNINSTALL_OUTPUT=$(sh "$SRC_DIR/init.sh" --uninstall 2>&1)
+UNINSTALL_RESULT2=$?
+
+# 通常ファイルが削除されずに残っていることを確認
+if [ $UNINSTALL_RESULT2 -eq 0 ] && [ -f "$HOME/.ssh/config" ] && \
+   echo "$UNINSTALL_OUTPUT" | grep -q "警告.*スキップ"; then
+    pass "アンインストールが通常ファイルをスキップする（安全性）"
+else
+    fail "アンインストールが通常ファイルを誤って削除した"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME7"
+rm -rf "$TEST_HOME8"
+
+# 空のディレクトリを削除するかテスト
+TEST_HOME9=$(mktemp -d)
+export HOME="$TEST_HOME9"
+
+# テスト用のディレクトリとシンボリックリンクを作成
+mkdir -p "$HOME/.gitmoji"
+ln -s "$SRC_DIR/.gitmoji/gitmojis.json" "$HOME/.gitmoji/gitmojis.json"
+
+# アンインストール実行
+sh "$SRC_DIR/init.sh" --uninstall >/dev/null 2>&1
+
+# 空のディレクトリが削除されたことを確認
+if [ ! -d "$HOME/.gitmoji" ]; then
+    pass "アンインストールが空のディレクトリを削除する"
+else
+    fail "アンインストールが空のディレクトリを削除できなかった"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME7"
+rm -rf "$TEST_HOME9"
+
+# 空でないディレクトリを保持するかテスト
+TEST_HOME10=$(mktemp -d)
+export HOME="$TEST_HOME10"
+
+# テスト用のディレクトリとシンボリックリンク、追加ファイルを作成
+mkdir -p "$HOME/.gitmoji"
+ln -s "$SRC_DIR/.gitmoji/gitmojis.json" "$HOME/.gitmoji/gitmojis.json"
+echo "other file" > "$HOME/.gitmoji/other.txt"
+
+# アンインストール実行
+sh "$SRC_DIR/init.sh" --uninstall >/dev/null 2>&1
+
+# ディレクトリが残っていることを確認（他のファイルがあるため）
+if [ -d "$HOME/.gitmoji" ] && [ -f "$HOME/.gitmoji/other.txt" ]; then
+    pass "アンインストールが空でないディレクトリを保持する"
+else
+    fail "アンインストールが空でないディレクトリを削除した"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME7"
+rm -rf "$TEST_HOME10"
+
+# dry-runモードのテスト
+TEST_HOME11=$(mktemp -d)
+export HOME="$TEST_HOME11"
+
+# テスト用のシンボリックリンクを作成
+mkdir -p "$HOME/.ssh"
+ln -s "$SRC_DIR/.ssh/config" "$HOME/.ssh/config"
+
+# dry-runでアンインストール実行
+UNINSTALL_DRY_OUTPUT=$(sh "$SRC_DIR/init.sh" --uninstall --dry-run 2>&1)
+
+# シンボリックリンクが残っていることを確認（dry-runなので削除されない）
+if [ -L "$HOME/.ssh/config" ] && echo "$UNINSTALL_DRY_OUTPUT" | grep -q "\[DRY RUN\]"; then
+    pass "アンインストールのdry-runモードが正しく動作する"
+else
+    fail "アンインストールのdry-runモードで実際の削除が行われた"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME7"
+rm -rf "$TEST_HOME11"
+
+echo ""
+
+# -------------------------------------------------
 # テスト結果サマリー
 # -------------------------------------------------
 TOTAL=$((PASSED + FAILED))
