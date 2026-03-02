@@ -193,6 +193,53 @@ rm -rf "$TEST_HOME"
 echo ""
 
 # -------------------------------------------------
+# 6. dry-runモードのテスト
+# -------------------------------------------------
+echo "[dry-runモードのテスト]"
+
+# dry-runオプションが認識されるかテスト
+TEST_OUTPUT=$(sh "$SRC_DIR/init.sh" --dry-run 2>&1)
+if echo "$TEST_OUTPUT" | grep -q "DRY RUN モード"; then
+    pass "dry-runオプションが正しく認識される"
+else
+    fail "dry-runオプションの認識に失敗"
+fi
+
+# dry-runモードで実際の変更が行われないかテスト
+TEST_HOME2=$(mktemp -d)
+export OLD_HOME2="$HOME"
+export HOME="$TEST_HOME2"
+
+# テスト用の一時ディレクトリを準備
+mkdir -p "$HOME/.ssh" 2>/dev/null
+
+# dry-runを実行
+sh "$SRC_DIR/init.sh" --dry-run >/dev/null 2>&1
+
+# 実際のファイルが作成されていないことを確認
+if [ ! -L "$HOME/.ssh/config" ] && [ ! -L "$HOME/.zshrc" ]; then
+    pass "dry-runモードで実際の変更が行われない"
+else
+    fail "dry-runモードで変更が実行された"
+fi
+
+# クリーンアップ
+export HOME="$OLD_HOME2"
+rm -rf "$TEST_HOME2"
+
+# dry-runモードの出力に[DRY RUN]が含まれているかテスト
+export HOME=$(mktemp -d)
+TEST_OUTPUT2=$(sh "$SRC_DIR/init.sh" --dry-run 2>&1)
+export HOME="$OLD_HOME"
+if echo "$TEST_OUTPUT2" | grep -q "\[DRY RUN\]"; then
+    pass "dry-runモードの出力に[DRY RUN]が含まれている"
+else
+    fail "dry-runモードの出力に[DRY RUN]が含まれていない"
+fi
+
+echo ""
+
+# -------------------------------------------------
 # テスト結果サマリー
 # -------------------------------------------------
 TOTAL=$((PASSED + FAILED))
