@@ -1,4 +1,4 @@
 [tools]
 rust = "1.67.1"
 python = "3.11.0"
-node = ["latest", "20.13.1"]
+node = ["lts", "20.13.1"]
