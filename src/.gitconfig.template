@@ -5,3 +5,22 @@
 	email = YOUR_EMAIL
 [color]
 	ui = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
+[core]
+	editor = nvim
+[fetch]
+	prune = true
+[diff]
+	algorithm = histogram
+	colorMoved = default
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	cm = commit
+	lg = log --oneline --graph --decorate
