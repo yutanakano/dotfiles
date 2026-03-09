@@ -65,10 +65,6 @@ zinit light zsh-users/zsh-completions
 zinit ice depth=1
 zinit light zsh-users/zsh-autosuggestions
 
-# Ctrl+r でコマンド履歴を検索
-zinit ice depth=1
-zinit light zdharma-continuum/history-search-multi-word
-
 # 過去に移動したことのあるディレクトリ名を指定して移動
 zinit ice depth=1
 zinit load agkozak/zsh-z
@@ -83,6 +79,11 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 # 補完システムの初期化
 autoload -Uz compinit && compinit
+
+# -------------------------------------------------
+# fzf
+# -------------------------------------------------
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
