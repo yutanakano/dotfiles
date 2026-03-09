@@ -98,8 +98,18 @@ zinit load Tarrasch/zsh-bd
 zinit ice depth=1
 zinit light zdharma-continuum/fast-syntax-highlighting
 
+# 入力途中の文字列で履歴を↑↓検索
+zinit ice depth=1
+zinit light zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # 補完システムの初期化
 autoload -Uz compinit && compinit
+
+# TAB補完をfzfのUIで表示
+zinit ice depth=1
+zinit light Aloxaf/fzf-tab
 
 # -------------------------------------------------
 # fzf
