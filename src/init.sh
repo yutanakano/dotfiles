@@ -16,9 +16,18 @@ for arg in "$@"; do
         --uninstall)
             UNINSTALL=1
             ;;
+        --help|-h)
+            echo "使用方法: $0 [--dry-run] [--uninstall] [--help]"
+            echo ""
+            echo "オプション:"
+            echo "  --dry-run     実際には変更を行わず、実行内容のみを表示します"
+            echo "  --uninstall   dotfilesのシンボリックリンクを削除します"
+            echo "  --help, -h    このヘルプメッセージを表示します"
+            exit 0
+            ;;
         *)
             echo "不明なオプション: $arg"
-            echo "使用方法: $0 [--dry-run] [--uninstall]"
+            echo "使用方法: $0 [--dry-run] [--uninstall] [--help]"
             exit 1
             ;;
     esac
@@ -208,7 +217,7 @@ process_symlink_configs() {
 $CURRENT/.ssh/config|$HOME/.ssh/config|SSH設定|chmod 600 "$HOME/.ssh/config"
 $CURRENT/.config/tmux/tmux.conf|$HOME/.config/tmux/tmux.conf|tmux設定|
 $CURRENT/.config/tmux/quad.sh|$HOME/.config/tmux/quad.sh|tmux quad.sh|
-$CURRENT/.config/tmux/editer.sh|$HOME/.config/tmux/editer.sh|tmux editer.sh|
+$CURRENT/.config/tmux/editor.sh|$HOME/.config/tmux/editor.sh|tmux editor.sh|
 $CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウト|
 $CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
 $CURRENT/.config/mise|$HOME/.config/mise|mise設定|
@@ -318,8 +327,8 @@ if [ $DRY_RUN -eq 1 ]; then
         echo ".gitconfigをセットアップしています"
         echo "  [DRY RUN] cp $CURRENT/.gitconfig.template ~/.gitconfig"
         echo "  [DRY RUN] 名前とメールアドレスの入力をスキップ"
-        echo "  [DRY RUN] sed -i.bak 's/YOUR_NAME/<入力された名前>/' ~/.gitconfig"
-        echo "  [DRY RUN] sed -i.bak 's/YOUR_EMAIL/<入力されたメール>/' ~/.gitconfig"
+        echo "  [DRY RUN] sed -i.bak 's|YOUR_NAME|<入力された名前>|' ~/.gitconfig"
+        echo "  [DRY RUN] sed -i.bak 's|YOUR_EMAIL|<入力されたメール>|' ~/.gitconfig"
         echo "  [DRY RUN] rm ~/.gitconfig.bak"
     else
         echo ".gitconfigは既に存在します。スキップします"
@@ -349,8 +358,8 @@ else
             fi
         done
 
-        sed -i.bak "s/YOUR_NAME/$git_name/" ~/.gitconfig || { echo "エラー: 名前の更新に失敗しました"; exit 1; }
-        sed -i.bak "s/YOUR_EMAIL/$git_email/" ~/.gitconfig || { echo "エラー: メールアドレスの更新に失敗しました"; exit 1; }
+        sed -i.bak "s|YOUR_NAME|$git_name|" ~/.gitconfig || { echo "エラー: 名前の更新に失敗しました"; exit 1; }
+        sed -i.bak "s|YOUR_EMAIL|$git_email|" ~/.gitconfig || { echo "エラー: メールアドレスの更新に失敗しました"; exit 1; }
         rm ~/.gitconfig.bak
         echo ".gitconfigを作成しました"
     else

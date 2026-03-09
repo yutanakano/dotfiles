@@ -5,6 +5,6 @@
 ## 使い方
 
 - 上部 1 パネル下部 3 パネルのエディタ目的のパネルを作成
-  - `sh ~/.config/tmux/editer.sh`
+  - `sh ~/.config/tmux/editor.sh`
 - 4 つに均等に分けたパネルを作成
   - `sh ~/.config/tmux/quad.sh`
