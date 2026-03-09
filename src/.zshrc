@@ -66,6 +66,7 @@ setopt pushd_ignore_dups  # スタックの重複を除去
 setopt correct              # コマンドのタイポを自動提案
 setopt no_beep              # ビープ音を無効化
 setopt interactive_comments # シェル上で # 以降をコメントとして扱う
+setopt print_eight_bit      # 日本語ファイル名を正しく表示
 
 # -------------------------------------------------
 # 補完の強化
