@@ -220,6 +220,7 @@ $CURRENT/.config/tmux/quad.sh|$HOME/.config/tmux/quad.sh|tmux quad.sh|
 $CURRENT/.config/tmux/editor.sh|$HOME/.config/tmux/editor.sh|tmux editor.sh|
 $CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウト|
 $CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
+$CURRENT/.config/ghostty/config|$HOME/.config/ghostty/config|Ghostty設定|
 $CURRENT/.config/mise|$HOME/.config/mise|mise設定|
 $CURRENT/.zshrc|$HOME/.zshrc|.zshrc|
 $CURRENT/.Brewfile|$HOME/.Brewfile|.Brewfile|
