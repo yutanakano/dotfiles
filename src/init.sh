@@ -222,6 +222,7 @@ $CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウ�
 $CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
 $CURRENT/.config/ghostty/config|$HOME/.config/ghostty/config|Ghostty設定|
 $CURRENT/.config/mise|$HOME/.config/mise|mise設定|
+$CURRENT/.config/nvim|$HOME/.config/nvim|Neovim設定(LazyVim)|
 $CURRENT/.zshrc|$HOME/.zshrc|.zshrc|
 $CURRENT/.Brewfile|$HOME/.Brewfile|.Brewfile|
 $CURRENT/.gitmoji/gitmojis.json|$HOME/.gitmoji/gitmojis.json|gitmoji設定|
