@@ -15,6 +15,12 @@
 	editor = nvim
 [fetch]
 	prune = true
+[merge]
+	conflictstyle = zdiff3
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true
 [diff]
 	algorithm = histogram
 	colorMoved = default
