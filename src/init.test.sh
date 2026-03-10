@@ -62,6 +62,7 @@ check_file_exists "$SRC_DIR/.config/tmux/editor.sh" "tmux editor.shが存在す�
 check_file_exists "$SRC_DIR/.config/tmux/quad.sh" "tmux quad.shが存在する"
 check_file_exists "$SRC_DIR/.config/ghostty/config" "Ghostty設定が存在する"
 check_file_exists "$SRC_DIR/.config/mise/config.toml" "mise設定が存在する"
+check_file_exists "$SRC_DIR/.config/nvim/init.lua" "Neovim設定(LazyVim)が存在する"
 check_file_exists "$SRC_DIR/.gitmoji/gitmojis.json" "gitmoji設定が存在する"
 
 echo ""

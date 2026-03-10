@@ -1,9 +1,12 @@
+tap "adoptopenjdk/openjdk"
 tap "aws/tap"
+tap "manaflow-ai/cmux"
 tap "oven-sh/bun"
-tap "robotsandpencils/made"
 tap "supabase/tap"
 # Run your GitHub Actions locally
 brew "act"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Automate deployment, configuration, and upgrading
 brew "ansible"
 # Official Amazon AWS command-line interface
@@ -16,6 +19,8 @@ brew "cocoapods"
 brew "deno"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -24,6 +29,8 @@ brew "gh"
 brew "ghq"
 # Quickly rewrite git repository history
 brew "git-filter-repo"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Interactive command-line tool for using emoji in commit messages
 brew "gitmoji"
 # Lightweight and flexible command-line JSON processor
@@ -40,14 +47,16 @@ brew "neovim"
 brew "peco"
 # Fast, disk space efficient package manager
 brew "pnpm"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Text interface for Git repositories
 brew "tig"
 # Terminal multiplexer
 brew "tmux"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
+# Tree command, improved
+brew "tre-command"
 # Next generation frontend tooling. It's fast!
 brew "vite"
 # Watch files and take action when they change
@@ -58,22 +67,21 @@ brew "yarn"
 brew "zellij"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
-# Install and switch between multiple versions of Xcode
-brew "robotsandpencils/made/xcodes"
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Supabase CLI (Beta)
 brew "supabase/tap/supabase-beta", link: false
-# AI-powered productivity tool for the command-line
-cask "amazon-q"
+# JDK from the Java User Group (JUG)
+cask "adoptopenjdk"
 # Tools for building Android applications
 cask "android-studio"
 # Chromium based browser
 cask "arc"
 # OpenAI's official browser with ChatGPT built in
 cask "chatgpt-atlas"
-# Switch input methods by left/right command keys
 cask "cmd-eikana"
+# Lightweight native macOS terminal with vertical tabs for AI coding agents
+cask "manaflow-ai/cmux/cmux"
 # Write, edit, and chat about your code with AI
 cask "cursor"
 # Universal database tool and SQL client
@@ -86,6 +94,8 @@ cask "docker-desktop"
 cask "elgato-stream-deck"
 # Launch builds and start simulators from your menu bar
 cask "expo-orbit"
+# Reimagine your terminal
+cask "fig"
 # Collaborative team software
 cask "figma"
 # Web browser
@@ -106,6 +116,8 @@ cask "iterm2"
 cask "jetbrains-toolbox"
 # Open-source keystroke visualiser
 cask "keycastr"
+# AI-powered productivity tool for the command-line
+cask "kiro-cli"
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Collaboration platform for API development
@@ -114,12 +126,12 @@ cask "postman"
 cask "raycast"
 # Native GUI tool for relational databases
 cask "tableplus"
-# Eclipse Temurin (AdoptOpenJDK successor)
-cask "temurin"
 # Open-source code editor
 cask "visual-studio-code"
 # Rust-based terminal
 cask "warp"
+# Install and switch between multiple versions of Xcode
+cask "xcodes-app"
 # Video communication and virtual meeting platform
 cask "zoom"
 mas "1Password 7", id: 1333542190
@@ -138,6 +150,7 @@ mas "Slack", id: 803453959
 mas "Xcode", id: 497799835
 vscode "aaron-bond.better-comments"
 vscode "ajmnz.prisma-import"
+vscode "amazonwebservices.codewhisperer-for-command-line-companion"
 vscode "arjun.swagger-viewer"
 vscode "bierner.markdown-mermaid"
 vscode "bpruitt-goddard.mermaid-markdown-syntax-highlighting"
@@ -182,6 +195,8 @@ vscode "streetsidesoftware.code-spell-checker"
 vscode "tamasfe.even-better-toml"
 vscode "usernamehw.errorlens"
 vscode "visualstudioexptteam.vscodeintellicode-completions"
+vscode "vscode-icons-team.vscode-icons"
+vscode "withfig.fig"
 vscode "wix.vscode-import-cost"
 vscode "yoavbls.pretty-ts-errors"
 vscode "yusukehirao.vscode-markuplint"
