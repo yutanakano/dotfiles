@@ -3,11 +3,13 @@
 # -------------------------------------------------
 font-family = JetBrains Mono Nerd Font
 font-size = 14
+font-thicken = true
 
 # -------------------------------------------------
 # テーマ
 # -------------------------------------------------
-theme = catppuccin-mocha
+theme = light:catppuccin-latte,dark:catppuccin-mocha
+minimum-contrast = 1.1
 
 # -------------------------------------------------
 # カーソル
@@ -21,6 +23,7 @@ cursor-style-blink = false
 window-padding-x = 4
 window-padding-y = 4
 background-opacity = 0.95
+background-blur-radius = 20
 
 # -------------------------------------------------
 # スクロール
