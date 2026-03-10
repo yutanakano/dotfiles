@@ -270,6 +270,7 @@ process_directory_configs() {
 $HOME/.ssh|.sshディレクトリ
 $HOME/.config/tmux|tmuxディレクトリ
 $HOME/.config/zellij|zellijディレクトリ
+$HOME/.config/ghostty|ghosttyディレクトリ
 $HOME/.gitmoji|.gitmojiディレクトリ
 DIR_LIST
 
