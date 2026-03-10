@@ -1,12 +1,9 @@
-tap "adoptopenjdk/openjdk"
 tap "aws/tap"
 tap "oven-sh/bun"
 tap "robotsandpencils/made"
 tap "supabase/tap"
 # Run your GitHub Actions locally
 brew "act"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
 # Automate deployment, configuration, and upgrading
 brew "ansible"
 # Official Amazon AWS command-line interface
@@ -27,8 +24,6 @@ brew "gh"
 brew "ghq"
 # Quickly rewrite git repository history
 brew "git-filter-repo"
-# Platform built on V8 to build network applications
-brew "node"
 # Interactive command-line tool for using emoji in commit messages
 brew "gitmoji"
 # Lightweight and flexible command-line JSON processor
@@ -51,6 +46,8 @@ brew "starship"
 brew "tig"
 # Terminal multiplexer
 brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Next generation frontend tooling. It's fast!
 brew "vite"
 # Watch files and take action when they change
@@ -67,8 +64,6 @@ brew "robotsandpencils/made/xcodes"
 brew "supabase/tap/supabase"
 # Supabase CLI (Beta)
 brew "supabase/tap/supabase-beta", link: false
-# JDK from the Java User Group (JUG)
-cask "adoptopenjdk"
 # AI-powered productivity tool for the command-line
 cask "amazon-q"
 # Tools for building Android applications
@@ -77,6 +72,7 @@ cask "android-studio"
 cask "arc"
 # OpenAI's official browser with ChatGPT built in
 cask "chatgpt-atlas"
+# Switch input methods by left/right command keys
 cask "cmd-eikana"
 # Write, edit, and chat about your code with AI
 cask "cursor"
@@ -90,8 +86,6 @@ cask "docker-desktop"
 cask "elgato-stream-deck"
 # Launch builds and start simulators from your menu bar
 cask "expo-orbit"
-# Reimagine your terminal
-cask "fig"
 # Collaborative team software
 cask "figma"
 # Web browser
@@ -120,6 +114,8 @@ cask "postman"
 cask "raycast"
 # Native GUI tool for relational databases
 cask "tableplus"
+# Eclipse Temurin (AdoptOpenJDK successor)
+cask "temurin"
 # Open-source code editor
 cask "visual-studio-code"
 # Rust-based terminal
@@ -142,7 +138,6 @@ mas "Slack", id: 803453959
 mas "Xcode", id: 497799835
 vscode "aaron-bond.better-comments"
 vscode "ajmnz.prisma-import"
-vscode "amazonwebservices.codewhisperer-for-command-line-companion"
 vscode "arjun.swagger-viewer"
 vscode "bierner.markdown-mermaid"
 vscode "bpruitt-goddard.mermaid-markdown-syntax-highlighting"
@@ -187,8 +182,6 @@ vscode "streetsidesoftware.code-spell-checker"
 vscode "tamasfe.even-better-toml"
 vscode "usernamehw.errorlens"
 vscode "visualstudioexptteam.vscodeintellicode-completions"
-vscode "vscode-icons-team.vscode-icons"
-vscode "withfig.fig"
 vscode "wix.vscode-import-cost"
 vscode "yoavbls.pretty-ts-errors"
 vscode "yusukehirao.vscode-markuplint"

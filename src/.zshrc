@@ -1,5 +1,7 @@
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+
 # -------------------------------------------------
 # homebrewのパス
 # -------------------------------------------------
@@ -14,10 +16,7 @@ eval "$(mise activate zsh)"
 # AndroidStudioのパス
 # -------------------------------------------------
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 # -------------------------------------------------
 # Starshipのパス
@@ -40,44 +39,83 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
 ### End of Zinit's installer chunk
 
 # -------------------------------------------------
 # コマンドの履歴の設定
 # -------------------------------------------------
+HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt append_history
 setopt share_history
 setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_expire_dups_first
+
+# -------------------------------------------------
+# ディレクトリ移動
+# -------------------------------------------------
+setopt auto_cd            # ディレクトリ名だけで cd
+setopt auto_pushd         # cd で自動的にスタックに積む
+setopt pushd_ignore_dups  # スタックの重複を除去
+
+# -------------------------------------------------
+# シェルの挙動
+# -------------------------------------------------
+setopt correct              # コマンドのタイポを自動提案
+setopt no_beep              # ビープ音を無効化
+setopt interactive_comments # シェル上で # 以降をコメントとして扱う
+setopt print_eight_bit      # 日本語ファイル名を正しく表示
+
+# -------------------------------------------------
+# 補完の強化
+# -------------------------------------------------
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # 小文字で大文字もマッチ
+zstyle ':completion:*' menu select                     # TAB で候補をハイライト選択
 
 # -------------------------------------------------
 # プラグイン
 # -------------------------------------------------
+
+# 補完定義の拡充
 zinit ice depth=1
+zinit light zsh-users/zsh-completions
 
 # 補完
+zinit ice depth=1
 zinit light zsh-users/zsh-autosuggestions
 
-# シンタックスハイライト
-zinit light zdharma/fast-syntax-highlighting
-
-# Ctrl+r でコマンド履歴を検索
-zinit light zdharma/history-search-multi-word
-
 # 過去に移動したことのあるディレクトリ名を指定して移動
+zinit ice depth=1
 zinit load agkozak/zsh-z
 
 # 親ディレクトリへ移動
+zinit ice depth=1
 zinit load Tarrasch/zsh-bd
 
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+# シンタックスハイライト（他のプラグインの後に読み込む）
+zinit ice depth=1
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# 入力途中の文字列で履歴を↑↓検索
+zinit ice depth=1
+zinit light zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# 補完システムの初期化
+autoload -Uz compinit && compinit
+
+# TAB補完をfzfのUIで表示
+zinit ice depth=1
+zinit light Aloxaf/fzf-tab
+
+# -------------------------------------------------
+# fzf
+# -------------------------------------------------
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
