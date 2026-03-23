@@ -228,6 +228,9 @@ $CURRENT/.config/nvim|$HOME/.config/nvim|Neovim設定(LazyVim)|
 $CURRENT/.zshrc|$HOME/.zshrc|.zshrc|
 $CURRENT/.Brewfile|$HOME/.Brewfile|.Brewfile|
 $CURRENT/.gitmoji/gitmojis.json|$HOME/.gitmoji/gitmojis.json|gitmoji設定|
+$CURRENT/.config/cmux/worktree-setup.sh|$HOME/.config/cmux/worktree-setup.sh|cmux worktree-setup|
+$CURRENT/.config/cmux/worktree-cleanup.sh|$HOME/.config/cmux/worktree-cleanup.sh|cmux worktree-cleanup|
+$CURRENT/.config/cmux/worktree-status.sh|$HOME/.config/cmux/worktree-status.sh|cmux worktree-status|
 SYMLINK_LIST
 
     # アンインストール時のサマリー
@@ -276,6 +279,7 @@ $HOME/.config/cmux|cmuxディレクトリ
 $HOME/.config/zellij|zellijディレクトリ
 $HOME/.config/ghostty|ghosttyディレクトリ
 $HOME/.gitmoji|.gitmojiディレクトリ
+$HOME/.config/cmux|cmuxディレクトリ
 DIR_LIST
 
     # アンインストール時のサマリー
