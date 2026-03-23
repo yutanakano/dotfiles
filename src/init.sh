@@ -218,6 +218,8 @@ $CURRENT/.ssh/config|$HOME/.ssh/config|SSH設定|chmod 600 "$HOME/.ssh/config"
 $CURRENT/.config/tmux/tmux.conf|$HOME/.config/tmux/tmux.conf|tmux設定|
 $CURRENT/.config/tmux/quad.sh|$HOME/.config/tmux/quad.sh|tmux quad.sh|
 $CURRENT/.config/tmux/editor.sh|$HOME/.config/tmux/editor.sh|tmux editor.sh|
+$CURRENT/.config/cmux/5pane.sh|$HOME/.config/cmux/5pane.sh|cmux 5pane.sh|
+$CURRENT/.config/cmux/auto-layout.zsh|$HOME/.config/cmux/auto-layout.zsh|cmux自動レイアウト|
 $CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウト|
 $CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
 $CURRENT/.config/ghostty/config|$HOME/.config/ghostty/config|Ghostty設定|
@@ -226,6 +228,9 @@ $CURRENT/.config/nvim|$HOME/.config/nvim|Neovim設定(LazyVim)|
 $CURRENT/.zshrc|$HOME/.zshrc|.zshrc|
 $CURRENT/.Brewfile|$HOME/.Brewfile|.Brewfile|
 $CURRENT/.gitmoji/gitmojis.json|$HOME/.gitmoji/gitmojis.json|gitmoji設定|
+$CURRENT/.config/cmux/worktree-setup.sh|$HOME/.config/cmux/worktree-setup.sh|cmux worktree-setup|
+$CURRENT/.config/cmux/worktree-cleanup.sh|$HOME/.config/cmux/worktree-cleanup.sh|cmux worktree-cleanup|
+$CURRENT/.config/cmux/worktree-status.sh|$HOME/.config/cmux/worktree-status.sh|cmux worktree-status|
 SYMLINK_LIST
 
     # アンインストール時のサマリー
@@ -270,9 +275,11 @@ process_directory_configs() {
     done <<DIR_LIST
 $HOME/.ssh|.sshディレクトリ
 $HOME/.config/tmux|tmuxディレクトリ
+$HOME/.config/cmux|cmuxディレクトリ
 $HOME/.config/zellij|zellijディレクトリ
 $HOME/.config/ghostty|ghosttyディレクトリ
 $HOME/.gitmoji|.gitmojiディレクトリ
+$HOME/.config/cmux|cmuxディレクトリ
 DIR_LIST
 
     # アンインストール時のサマリー
