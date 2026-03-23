@@ -218,6 +218,8 @@ $CURRENT/.ssh/config|$HOME/.ssh/config|SSH設定|chmod 600 "$HOME/.ssh/config"
 $CURRENT/.config/tmux/tmux.conf|$HOME/.config/tmux/tmux.conf|tmux設定|
 $CURRENT/.config/tmux/quad.sh|$HOME/.config/tmux/quad.sh|tmux quad.sh|
 $CURRENT/.config/tmux/editor.sh|$HOME/.config/tmux/editor.sh|tmux editor.sh|
+$CURRENT/.config/cmux/5pane.sh|$HOME/.config/cmux/5pane.sh|cmux 5pane.sh|
+$CURRENT/.config/cmux/auto-layout.zsh|$HOME/.config/cmux/auto-layout.zsh|cmux自動レイアウト|
 $CURRENT/.config/zellij/layouts|$HOME/.config/zellij/layouts|zellijレイアウト|
 $CURRENT/.config/starship.toml|$HOME/.config/starship.toml|starship設定|
 $CURRENT/.config/ghostty/config|$HOME/.config/ghostty/config|Ghostty設定|
@@ -270,6 +272,7 @@ process_directory_configs() {
     done <<DIR_LIST
 $HOME/.ssh|.sshディレクトリ
 $HOME/.config/tmux|tmuxディレクトリ
+$HOME/.config/cmux|cmuxディレクトリ
 $HOME/.config/zellij|zellijディレクトリ
 $HOME/.config/ghostty|ghosttyディレクトリ
 $HOME/.gitmoji|.gitmojiディレクトリ

@@ -117,5 +117,10 @@ zinit light Aloxaf/fzf-tab
 # -------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# -------------------------------------------------
+# cmux自動レイアウト
+# -------------------------------------------------
+[[ -n "$CMUX_WORKSPACE_ID" || -n "$CMUX_PANEL_ID" ]] && source ~/.config/cmux/auto-layout.zsh
+
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
