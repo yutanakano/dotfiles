@@ -14,5 +14,18 @@ _cmux_auto_layout() {
   fi
 }
 
+# cmux new-splitがPTYサイズを更新しないバグの回避策
+# ANSIエスケープシーケンスで実サイズを取得しsttyで設定する
+_cmux_fix_pty_size() {
+  add-zsh-hook -d precmd _cmux_fix_pty_size
+  local rows cols
+  printf '\e7\e[9999;9999H\e[6n\e8' > /dev/tty
+  IFS='[;' read -sdR _ rows cols < /dev/tty
+  if [[ -n "$cols" && -n "$rows" && "$cols" != "$COLUMNS" ]]; then
+    command stty rows "$rows" columns "$cols" < /dev/tty
+  fi
+}
+
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _cmux_auto_layout
+add-zsh-hook precmd _cmux_fix_pty_size
