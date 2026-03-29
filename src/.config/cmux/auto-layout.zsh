@@ -6,6 +6,11 @@ _cmux_auto_layout() {
   # cmux環境でない場合はスキップ
   [[ -z "$CMUX_WORKSPACE_ID" ]] && return
 
+  # 既にパネルが複数ある場合はスキップ（既存ワークスペースへの再適用を防止）
+  local pane_count
+  pane_count=$(cmux list-panes 2>/dev/null | wc -l | tr -d ' ')
+  [[ "$pane_count" -gt 1 ]] && return
+
   # 未知のワークスペースならレイアウトを適用
   if ! grep -qF "$CMUX_WORKSPACE_ID" "$_CMUX_KNOWN_WORKSPACES_FILE" 2>/dev/null; then
     mkdir -p "$(dirname "$_CMUX_KNOWN_WORKSPACES_FILE")"
