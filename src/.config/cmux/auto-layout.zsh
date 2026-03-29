@@ -15,7 +15,7 @@ _cmux_auto_layout() {
   if ! grep -qF "$CMUX_WORKSPACE_ID" "$_CMUX_KNOWN_WORKSPACES_FILE" 2>/dev/null; then
     mkdir -p "$(dirname "$_CMUX_KNOWN_WORKSPACES_FILE")"
     echo "$CMUX_WORKSPACE_ID" >> "$_CMUX_KNOWN_WORKSPACES_FILE"
-    sh ~/.config/cmux/5pane.sh
+    sh ~/.config/cmux/5pane.sh > /dev/null 2>&1
   fi
 }
 
