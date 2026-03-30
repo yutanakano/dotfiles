@@ -42,30 +42,30 @@ else
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
 fi
 
-# src/init.shを呼び出しているか
-if grep -q "src/init.sh" "$ROOT_DIR/init.sh" 2>/dev/null; then
-    printf "${GREEN}✓${NC} src/init.shを呼び出している\n"
+# scripts/init.shを呼び出しているか
+if grep -q "scripts/init.sh" "$ROOT_DIR/init.sh" 2>/dev/null; then
+    printf "${GREEN}✓${NC} scripts/init.shを呼び出している\n"
     TOTAL_PASSED=$((TOTAL_PASSED + 1))
 else
-    printf "${RED}✗${NC} src/init.shを呼び出していない\n"
+    printf "${RED}✗${NC} scripts/init.shを呼び出していない\n"
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
 fi
 
 echo ""
 
 # -------------------------------------------------
-# 2. src/init.test.sh を実行
+# 2. scripts/init.test.sh を実行
 # -------------------------------------------------
-if [ -f "$ROOT_DIR/src/init.test.sh" ]; then
-    # src/init.test.shを実行
-    sh "$ROOT_DIR/src/init.test.sh"
+if [ -f "$ROOT_DIR/scripts/init.test.sh" ]; then
+    # scripts/init.test.shを実行
+    sh "$ROOT_DIR/scripts/init.test.sh"
     SRC_TEST_EXIT=$?
 
     # 終了コードに基づいて結果を集計
-    # src/init.test.shは成功時に0、失敗時に1を返す
-    # 詳細な成功/失敗数はsrc/init.test.sh内で表示される
+    # scripts/init.test.shは成功時に0、失敗時に1を返す
+    # 詳細な成功/失敗数はscripts/init.test.sh内で表示される
 else
-    printf "${RED}✗${NC} src/init.test.shが見つかりません\n"
+    printf "${RED}✗${NC} scripts/init.test.shが見つかりません\n"
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
     SRC_TEST_EXIT=1
 fi
