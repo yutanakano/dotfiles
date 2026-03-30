@@ -21,6 +21,8 @@ brew "deno"
 brew "direnv"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Play, record, convert, and stream many audio and video codecs
+brew "ffmpeg-full", link: true
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -33,6 +35,8 @@ brew "git-filter-repo"
 brew "node"
 # Interactive command-line tool for using emoji in commit messages
 brew "gitmoji"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick-full", link: true
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Simple terminal UI for git commands
@@ -47,11 +51,17 @@ brew "neovim"
 brew "peco"
 # Fast, disk space efficient package manager
 brew "pnpm"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# SVG rendering tool and library
+brew "resvg"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# 7-Zip is a file archiver with a high compression ratio
+brew "sevenzip"
 # Cross-shell prompt for astronauts
 brew "starship"
-# Manage installation of dotfiles via symlinks
+# Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Text interface for Git repositories
 brew "tig"
@@ -65,8 +75,12 @@ brew "vite"
 brew "watchman"
 # JavaScript package manager
 brew "yarn"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # Supabase CLI
@@ -106,6 +120,7 @@ cask "font-caskaydia-cove-nerd-font"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-symbols-only-nerd-font"
 # Shows hidden files and folders and switches their visibility in Finder
 cask "funter"
 # Web browser
@@ -165,6 +180,7 @@ vscode "dsznajder.es7-react-js-snippets"
 vscode "duynvu.dbml-language"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
+vscode "effectful-tech.effect-vscode"
 vscode "esbenp.prettier-vscode"
 vscode "expo.vscode-expo-tools"
 vscode "figma.figma-vscode-extension"
