@@ -1,0 +1,60 @@
+// Zellij layout: 左1枚 + 右4分割（合計5パネル）
+//
+// cmuxの5パネルレイアウトと同等の構成
+//
+// ┌──────────────┬──────┬──────┐
+// │              │  B   │  C   │
+// │  A (管理)    │ CC+WT│ CC+WT│
+// │              ├──────┼──────┤
+// │              │  D   │  E   │
+// │              │ CC+WT│ CC+WT│
+// └──────────────┴──────┴──────┘
+
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="work" {
+        pane split_direction="vertical" {
+            // パネルA: 管理用（左側50%）
+            pane size="50%" name="A" focus=true
+
+            // 右側: 2x2グリッド（B, C, D, E）
+            pane split_direction="horizontal" size="50%" {
+                // 上段
+                pane split_direction="vertical" {
+                    pane name="B"
+                    pane name="C"
+                }
+                // 下段
+                pane split_direction="vertical" {
+                    pane name="D"
+                    pane name="E"
+                }
+            }
+        }
+    }
+
+    new_tab_template {
+        pane split_direction="vertical" {
+            pane size="50%" name="A" focus=true
+            pane split_direction="horizontal" size="50%" {
+                pane split_direction="vertical" {
+                    pane name="B"
+                    pane name="C"
+                }
+                pane split_direction="vertical" {
+                    pane name="D"
+                    pane name="E"
+                }
+            }
+        }
+    }
+}
