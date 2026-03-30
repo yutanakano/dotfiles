@@ -51,6 +51,8 @@ brew "pnpm"
 brew "ripgrep"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Manage installation of dotfiles via symlinks
+brew "stow"
 # Text interface for Git repositories
 brew "tig"
 # Terminal multiplexer
