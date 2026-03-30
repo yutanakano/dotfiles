@@ -3,7 +3,7 @@
 Zellijの5パネルレイアウトとGit worktreeを組み合わせて、複数機能を並行開発するためのスクリプト群です。
 
 > **Note**: cmux環境では自動レイアウトが適用されるため、そちらを優先して利用できます。
-> → [`~/.config/cmux/README.md`](../../cmux/README.md)
+> → [`docs/cmux.md`](cmux.md)
 
 ```
 ┌──────────────┬──────┬──────┐
