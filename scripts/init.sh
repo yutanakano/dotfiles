@@ -16,10 +16,6 @@ fi
 [ ! -d "$HOME/.ssh" ] && mkdir -p "$HOME/.ssh"
 [ ! -d "$HOME/.config/yazi" ] && mkdir -p "$HOME/.config/yazi"
 
-# ya pkgが生成した実ファイルがあるとstowが衝突するため事前に削除
-# （stowでシンボリックリンクに置き換え、ya pkg installで読み取れる）
-[ -f "$HOME/.config/yazi/package.toml" ] && [ ! -L "$HOME/.config/yazi/package.toml" ] && rm "$HOME/.config/yazi/package.toml"
-
 # stowでシンボリックリンクを作成
 echo "dotfilesをセットアップしています"
 stow -t "$HOME" -d "$DOTFILES_DIR" src
