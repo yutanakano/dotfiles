@@ -118,6 +118,18 @@ zinit light Aloxaf/fzf-tab
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # -------------------------------------------------
+# Yazi (cd-on-exit wrapper)
+# -------------------------------------------------
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+# -------------------------------------------------
 # cmux自動レイアウト
 # -------------------------------------------------
 [[ -n "$CMUX_WORKSPACE_ID" || -n "$CMUX_PANEL_ID" ]] && source ~/.config/cmux/auto-layout.zsh

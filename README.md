@@ -29,6 +29,7 @@ sh init.sh
 - **zellij** - モダンなターミナルワークスペース
 - **starship** - クロスシェルプロンプト
 - **mise** - ランタイムバージョンマネージャー
+- **yazi** - ターミナルファイルマネージャー
 - **SSH** - SSH設定
 - **Homebrew** (`.Brewfile`) - パッケージ管理
 - **gitmoji** - Gitコミット絵文字設定
