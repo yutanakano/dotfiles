@@ -1,0 +1,30 @@
+[manager]
+sort_by = "natural"
+sort_dir_first = true
+sort_sensitive = false
+show_hidden = true
+show_symlink = true
+scrolloff = 5
+linemode = "size"
+mouse_events = ["click", "scroll", "drag"]
+
+[preview]
+wrap = "no"
+tab_size = 2
+max_width = 600
+max_height = 900
+image_quality = 75
+image_filter = "lanczos3"
+
+[input]
+cursor_blink = true
+
+[[plugin.fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"

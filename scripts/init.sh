@@ -14,10 +14,19 @@ fi
 # ~/.sshがリンクになるとssh-keygenの秘密鍵がリポジトリに入るリスクがある
 [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
 [ ! -d "$HOME/.ssh" ] && mkdir -p "$HOME/.ssh"
+[ ! -d "$HOME/.config/yazi" ] && mkdir -p "$HOME/.config/yazi"
 
 # stowでシンボリックリンクを作成
 echo "dotfilesをセットアップしています"
 stow -t "$HOME" -d "$DOTFILES_DIR" src
+
+# Yaziプラグイン・テーマのインストール
+if command -v ya >/dev/null 2>&1; then
+    echo "Yaziプラグインをインストールしています"
+    ya pkg install || echo "警告: Yaziプラグインのインストールに失敗しました"
+else
+    echo "yaziがインストールされていません。Yaziプラグインのインストールをスキップします"
+fi
 
 # .gitconfig
 validate_not_empty() {
