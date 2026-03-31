@@ -22,3 +22,7 @@ src/$HOME/
 # 環境固有のファイル
 .env
 .env.local
+
+# Yaziプラグイン・テーマ（ya pkg installで復元）
+src/.config/yazi/plugins/
+src/.config/yazi/flavors/

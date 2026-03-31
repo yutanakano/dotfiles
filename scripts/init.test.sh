@@ -81,6 +81,11 @@ check_file_exists "$SRC_DIR/.config/tmux/quad.sh" "tmux quad.shが存在する"
 check_file_exists "$SRC_DIR/.config/ghostty/config" "Ghostty設定が存在する"
 check_file_exists "$SRC_DIR/.config/mise/config.toml" "mise設定が存在する"
 check_file_exists "$SRC_DIR/.config/nvim/init.lua" "Neovim設定(LazyVim)が存在する"
+check_file_exists "$SRC_DIR/.config/yazi/yazi.toml" "Yazi設定が存在する"
+check_file_exists "$SRC_DIR/.config/yazi/keymap.toml" "Yaziキーマップが存在する"
+check_file_exists "$SRC_DIR/.config/yazi/theme.toml" "Yaziテーマが存在する"
+check_file_exists "$SRC_DIR/.config/yazi/init.lua" "Yaziプラグイン初期化が存在する"
+check_file_exists "$SRC_DIR/.config/yazi/package.toml" "Yaziパッケージ定義が存在する"
 check_file_exists "$SRC_DIR/.gitmoji/gitmojis.json" "gitmoji設定が存在する"
 
 echo ""
@@ -234,6 +239,13 @@ else
         pass "~/.sshがディレクトリのまま保持されている（tree folding防止）"
     else
         fail "~/.sshがシンボリックリンクになっている（tree foldingが発生）"
+    fi
+
+    # ~/.config/yaziが丸ごとリンクされていないこと（plugins/がリポジトリに混入するリスク防止）
+    if [ -d "$HOME/.config/yazi" ] && [ ! -L "$HOME/.config/yazi" ]; then
+        pass "~/.config/yaziがディレクトリのまま保持されている（tree folding防止）"
+    else
+        fail "~/.config/yaziがシンボリックリンクになっている（tree foldingが発生）"
     fi
 
     # 既存の設定ファイルが破壊されていないこと
