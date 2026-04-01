@@ -5,9 +5,8 @@
 ## 要件
 
 - POSIX互換のシェル（sh, bash, zsh等）
-- 対応OS: macOS, Linux
+- 対応OS: macOS
 - Git
-- [GNU Stow](https://www.gnu.org/software/stow/) (`brew install stow`)
 
 ## インストール
 
@@ -20,7 +19,16 @@ cd ~/dotfiles
 sh init.sh
 ```
 
-初回実行時にGit設定（名前とメールアドレス）の入力を求められます。
+Homebrewのインストール、パッケージのインストール、dotfilesのリンク作成、miseランタイムのインストールまで自動で行います。初回実行時にGit設定（名前とメールアドレス）の入力を求められます。
+
+### 初回セットアップ後の手動ステップ
+
+1. GitHub CLIでSSH鍵を作成する
+   ```sh
+   gh auth login
+   ```
+2. ターミナルを再起動する（シェル設定やZinitプラグインの反映）
+3. VSCodeやターミナルアプリにフォントを適用する
 
 ## 管理している設定ファイル
 
