@@ -42,30 +42,61 @@ else
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
 fi
 
-# scripts/init.shを呼び出しているか
-if grep -q "scripts/init.sh" "$ROOT_DIR/init.sh" 2>/dev/null; then
-    printf "${GREEN}✓${NC} scripts/init.shを呼び出している\n"
+# init.shが3つのサブスクリプトを呼び出しているか
+for subscript in "scripts/homebrew/init.sh" "scripts/dotfiles/init.sh" "scripts/mise/init.sh"; do
+    if grep -q "$subscript" "$ROOT_DIR/init.sh" 2>/dev/null; then
+        printf "${GREEN}✓${NC} ${subscript}を呼び出している\n"
+        TOTAL_PASSED=$((TOTAL_PASSED + 1))
+    else
+        printf "${RED}✗${NC} ${subscript}を呼び出していない\n"
+        TOTAL_FAILED=$((TOTAL_FAILED + 1))
+    fi
+done
+
+echo ""
+
+# -------------------------------------------------
+# 2. サブスクリプトの存在・構文チェック
+# -------------------------------------------------
+echo "[サブスクリプトチェック]"
+
+for script in "scripts/homebrew/init.sh" "scripts/dotfiles/init.sh" "scripts/mise/init.sh"; do
+    if [ -f "$ROOT_DIR/$script" ]; then
+        printf "${GREEN}✓${NC} ${script}が存在する\n"
+        TOTAL_PASSED=$((TOTAL_PASSED + 1))
+    else
+        printf "${RED}✗${NC} ${script}が存在しない\n"
+        TOTAL_FAILED=$((TOTAL_FAILED + 1))
+    fi
+
+    if sh -n "$ROOT_DIR/$script" 2>/dev/null; then
+        printf "${GREEN}✓${NC} ${script}の構文が正しい\n"
+        TOTAL_PASSED=$((TOTAL_PASSED + 1))
+    else
+        printf "${RED}✗${NC} ${script}の構文にエラーがある\n"
+        TOTAL_FAILED=$((TOTAL_FAILED + 1))
+    fi
+done
+
+# homebrew/init.shがsrc/.Brewfileを参照しているか
+if grep -q "src/.Brewfile" "$ROOT_DIR/scripts/homebrew/init.sh" 2>/dev/null; then
+    printf "${GREEN}✓${NC} homebrew/init.shがsrc/.Brewfileを参照している\n"
     TOTAL_PASSED=$((TOTAL_PASSED + 1))
 else
-    printf "${RED}✗${NC} scripts/init.shを呼び出していない\n"
+    printf "${RED}✗${NC} homebrew/init.shがsrc/.Brewfileを参照していない\n"
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
 fi
 
 echo ""
 
 # -------------------------------------------------
-# 2. scripts/init.test.sh を実行
+# 3. scripts/dotfiles/init.test.sh を実行
 # -------------------------------------------------
-if [ -f "$ROOT_DIR/scripts/init.test.sh" ]; then
-    # scripts/init.test.shを実行
-    sh "$ROOT_DIR/scripts/init.test.sh"
+if [ -f "$ROOT_DIR/scripts/dotfiles/init.test.sh" ]; then
+    sh "$ROOT_DIR/scripts/dotfiles/init.test.sh"
     SRC_TEST_EXIT=$?
-
-    # 終了コードに基づいて結果を集計
-    # scripts/init.test.shは成功時に0、失敗時に1を返す
-    # 詳細な成功/失敗数はscripts/init.test.sh内で表示される
 else
-    printf "${RED}✗${NC} scripts/init.test.shが見つかりません\n"
+    printf "${RED}✗${NC} scripts/dotfiles/init.test.shが見つかりません\n"
     TOTAL_FAILED=$((TOTAL_FAILED + 1))
     SRC_TEST_EXIT=1
 fi
@@ -76,8 +107,6 @@ fi
 echo ""
 printf "${BLUE}=== テスト完了 ===${NC}\n"
 
-# src/init.test.shの終了コードをそのまま返す
-# これにより、どこかでテストが失敗していれば全体も失敗扱いになる
 if [ $TOTAL_FAILED -eq 0 ] && [ $SRC_TEST_EXIT -eq 0 ]; then
     printf "${GREEN}すべてのテストが成功しました！${NC}\n"
     echo ""
