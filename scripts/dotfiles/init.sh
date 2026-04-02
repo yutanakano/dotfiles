@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
 
-DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 # stowがインストールされているか確認
 if ! command -v stow >/dev/null 2>&1; then
     echo "エラー: stowがインストールされていません"
-    echo "  brew install stow でインストールしてください"
+    echo "  scripts/homebrew/init.shを確認してください"
     exit 1
 fi
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# scripts/init.sh のテスト
+# scripts/dotfiles/init.sh のテスト
 
 # カラーコード
 GREEN='\033[0;32m'
@@ -13,7 +13,7 @@ FAILED=0
 
 # ディレクトリ
 SCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
-DOTFILES_DIR="$(cd "$SCRIPTS_DIR/.." && pwd)"
+DOTFILES_DIR="$(cd "$SCRIPTS_DIR/../.." && pwd)"
 SRC_DIR="$DOTFILES_DIR/src"
 
 # テスト結果を表示する関数
@@ -51,7 +51,7 @@ cleanup_test_home() {
 }
 
 echo ""
-echo "=== scripts/init.sh のテスト ==="
+echo "=== scripts/dotfiles/init.sh のテスト ==="
 echo ""
 
 # -------------------------------------------------
@@ -69,7 +69,7 @@ check_file_exists() {
     fi
 }
 
-check_file_exists "$SCRIPTS_DIR/init.sh" "scripts/init.shが存在する"
+check_file_exists "$SCRIPTS_DIR/init.sh" "scripts/dotfiles/init.shが存在する"
 check_file_exists "$DOTFILES_DIR/templates/.gitconfig" "templates/.gitconfigが存在する"
 check_file_exists "$SRC_DIR/.zshrc" ".zshrcが存在する"
 check_file_exists "$SRC_DIR/.Brewfile" ".Brewfileが存在する"
@@ -96,9 +96,9 @@ echo ""
 echo "[スクリプト構文チェック]"
 
 if sh -n "$SCRIPTS_DIR/init.sh" 2>/dev/null; then
-    pass "scripts/init.shの構文が正しい"
+    pass "scripts/dotfiles/init.shの構文が正しい"
 else
-    fail "scripts/init.shの構文にエラーがある"
+    fail "scripts/dotfiles/init.shの構文にエラーがある"
 fi
 
 echo ""
@@ -111,7 +111,7 @@ echo "[依存ツールチェック]"
 if command -v stow >/dev/null 2>&1; then
     pass "stowがインストールされている"
 else
-    fail "stowがインストールされていない (brew install stow)"
+    fail "stowがインストールされていない (scripts/homebrew/init.shを確認)"
 fi
 
 echo ""
