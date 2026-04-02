@@ -19,12 +19,12 @@ image_filter = "lanczos3"
 [input]
 cursor_blink = true
 
-[[plugin.fetchers]]
-id   = "git"
-name = "*"
-run  = "git"
+[[plugin.prepend_fetchers]]
+id  = "git"
+url = "*"
+run = "git"
 
-[[plugin.fetchers]]
-id   = "git"
-name = "*/"
-run  = "git"
+[[plugin.prepend_fetchers]]
+id  = "git"
+url = "*/"
+run = "git"
