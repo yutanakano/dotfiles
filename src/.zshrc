@@ -13,6 +13,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(mise activate zsh)"
 
 # -------------------------------------------------
+# エディタ
+# -------------------------------------------------
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# -------------------------------------------------
 # AndroidStudioのパス
 # -------------------------------------------------
 export ANDROID_HOME=$HOME/Library/Android/sdk
