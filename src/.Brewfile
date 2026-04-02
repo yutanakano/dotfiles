@@ -73,6 +73,8 @@ cask "arc"
 # OpenAI's official browser with ChatGPT built in
 cask "chatgpt-atlas"
 cask "cmd-eikana"
+# Keyboard customiser
+cask "karabiner-elements"
 # Lightweight native macOS terminal with vertical tabs for AI coding agents
 cask "manaflow-ai/cmux/cmux"
 # Write, edit, and chat about your code with AI
