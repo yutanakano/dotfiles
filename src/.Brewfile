@@ -72,6 +72,8 @@ cask "android-studio"
 cask "arc"
 # OpenAI's official browser with ChatGPT built in
 cask "chatgpt-atlas"
+# Agentic coding tool from Anthropic
+cask "claude-code"
 cask "cmd-eikana"
 # Keyboard customiser
 cask "karabiner-elements"
